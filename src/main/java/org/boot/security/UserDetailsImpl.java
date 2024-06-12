@@ -1,4 +1,4 @@
-package org.boot.security.beans;
+package org.boot.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,8 +13,8 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private String status;
 
-    public UserDetailsImpl(String role, String password, String status, String username) {
-        this.authorities = List.of(new SimpleGrantedAuthority(role));
+    public UserDetailsImpl(String authorities, String password, String status, String username) {
+        this.authorities = List.of(new SimpleGrantedAuthority(authorities));
         this.password = password;
         this.status = status;
         this.username = username;
@@ -27,12 +27,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return !status.equals("E");
+        return true;
     }
 
     @Override
